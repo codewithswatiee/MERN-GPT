@@ -10,6 +10,7 @@ dist/
 
 # Ignore environment files (e.g., .env)
 /server/.env
+.env
 
 # Ignore system files like .DS_Store (macOS)
 .DS_Store
