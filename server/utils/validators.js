@@ -15,8 +15,14 @@ exports.validate = (validations) => {
     }
 }
 
-exports.signupValidator = [
-    body("name").notEmpty().withMessage("Name is required"),
+exports.loginValidator = [
     body("email").trim().isEmail().withMessage("Email is required"),
     body("password").trim().isLength({min: 6}).withMessage("Password Should contain 6 characters")
 ]
+
+exports.signupValidator = [
+    body("name").notEmpty().withMessage("Name is required"),
+    ...this.loginValidator
+]
+
+

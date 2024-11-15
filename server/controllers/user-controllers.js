@@ -59,3 +59,34 @@ exports.signUp = async (req, res) => {
         })
     }
 }
+
+exports.login = async (req, res) => {
+    const {email, password} = req.body;
+    try{
+        const user = await User.findOne({email: email})
+        if(!user){
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password"
+            })
+        }
+        const isValidPassword = bcrypt.compare(password, user.password);
+        if(!isValidPassword){
+            return res.status(401).json({
+                success: false,
+                message: "Invalid password"
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "OK",
+            user
+        })
+    } catch(err){
+        return res.status(500).json({
+            status: false,
+            message: "Error Occured while logging in"
+        })
+    }
+}
